@@ -1,0 +1,65 @@
+
+CREATE DATABASE HostelManagement;
+USE HostelManagement;
+CREATE TABLE Hostel (
+    hostel_id INT PRIMARY KEY,
+    hostel_name VARCHAR(100) NOT NULL,
+    location VARCHAR(100),
+    warden_id INT UNIQUE
+);
+CREATE TABLE Warden (
+    warden_id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(15),
+    email VARCHAR(100)
+);
+ALTER TABLE Hostel
+ADD CONSTRAINT fk_hostel_warden
+FOREIGN KEY (warden_id) REFERENCES Warden(warden_id);
+
+CREATE TABLE Room (
+    room_id INT PRIMARY KEY,
+    hostel_id INT,
+    room_number VARCHAR(20) UNIQUE,
+    room_type VARCHAR(50), -- e.g., Single, Double, Dorm
+    capacity INT,
+    current_occupancy INT DEFAULT 0,
+    FOREIGN KEY (hostel_id) REFERENCES Hostel(hostel_id)
+);
+
+CREATE TABLE Student (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    gender VARCHAR(10),
+    dob DATE,
+    phone VARCHAR(15),
+    email VARCHAR(100) UNIQUE,
+    course VARCHAR(50)
+);
+CREATE TABLE Allocation (
+    allocation_id INT PRIMARY KEY,
+    student_id INT,
+    room_id INT,
+    allocation_date DATE,
+    leave_date DATE,
+    FOREIGN KEY (student_id) REFERENCES Student(student_id),
+    FOREIGN KEY (room_id) REFERENCES Room(room_id)
+);
+CREATE TABLE Payment (
+    payment_id INT PRIMARY KEY,
+    student_id INT,
+    amount DECIMAL(10,2),
+    payment_date DATE,
+    status VARCHAR(20), -- Paid / Pending
+    FOREIGN KEY (student_id) REFERENCES Student(student_id)
+);
+
+CREATE TABLE Complaint (
+    complaint_id INT PRIMARY KEY,
+    student_id INT,
+    room_id INT,
+    description TEXT,
+    status VARCHAR(20), -- Pending / Resolved
+    FOREIGN KEY (student_id) REFERENCES Student(student_id),
+    FOREIGN KEY (room_id) REFERENCES Room(room_id)
+);
