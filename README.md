@@ -50,3 +50,7 @@ One-to-Many (1:N): A room can have many complaints, but each complaint is linked
 #
 # SCREENSHOT OF THE TABLES
 <img width="1259" height="437" alt="image" src="https://github.com/user-attachments/assets/62a9d96e-5635-48d5-b413-832d149fb5da" />
+#
+# ER DIAGRAM
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/b7e21c46-7034-449c-b696-cabc53ed9ed1" />
+
